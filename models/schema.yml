@@ -56,8 +56,6 @@ sources:
         description: 'inneholder diagnose informasjon'
       - name: fam_pp_perioder
         description: 'Inneholder infromasjon om perioder'
-      - name: fam_pp_fagsak
-        description: 'Inneholder infromasjon om fagsak'
       - name: fam_pp_periode_utbet_grader
         description: 'Inneholder infromasjon om utbetalinger'
 
