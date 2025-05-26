@@ -25,7 +25,7 @@ select * from pp_meta_data,
   ) j
   where kode is not null
 ),
-
+ 
 pre_final2 as (
   select p.kode
         ,p.type
@@ -37,52 +37,53 @@ pre_final2 as (
   join pp_fagsak f
   on p.kafka_offset = f.kafka_offset
 ),
-
+ 
 ny_diagnose as
 (
-  select ny.saksnummer, ny.behandlings_id, ny.vedtaks_tidspunkt, ny.kode, ny.type, ny.fk_pp_fagsak
+  select ny.saksnummer,diagnose_tidligere.type,diagnose_tidligere.kode, count(distinct fagsak_tidligere.behandlings_id) antall_behandlinger
   from pre_final2 ny
-  left outer join
-  (
-    select fagsak.saksnummer, fagsak.behandlings_id, fagsak.forrige_behandlings_id, fagsak.vedtaks_tidspunkt
-          ,diagnose.kode, diagnose.type
-    from {{ source('fam_pp', 'fam_pp_diagnose') }} diagnose
-    join {{ source('fam_pp', 'fam_pp_fagsak') }} fagsak
-    on diagnose.fk_pp_fagsak = fagsak.pk_pp_fagsak
-
-    union all
-    select saksnummer, behandlings_id, forrige_behandlings_id, vedtaks_tidspunkt
-          ,kode, type
-    from pre_final2
-  ) gml
-  on gml.saksnummer = ny.saksnummer
-  and gml.vedtaks_tidspunkt < ny.vedtaks_tidspunkt
-  and ny.kode = gml.kode
-  and ny.type = gml.type
-  where ny.forrige_behandlings_id is not null
-  and gml.kode is null
+  left outer join pp_fagsak fagsak_tidligere On
+  ny.saksnummer=fagsak_tidligere.saksnummer and
+  ny.vedtaks_tidspunkt>fagsak_tidligere.vedtaks_tidspunkt
+ 
+  left outer join fam_pp_diagnose diagnose_tidligere on
+  diagnose_tidligere.fk_pp_fagsak=fagsak_tidligere.pk_pp_fagsak
+  and  diagnose_tidligere.type=ny.type
+  and diagnose_tidligere.kode=ny.kode
+  group by  ny.saksnummer,diagnose_tidligere.type,diagnose_tidligere.kode
 ),
-
+ 
+min_antall as
+(
+select min(antall_behandlinger) min_antall_behandlinger from ny_diagnose
+)
+,
 final as
 (
   select ny.*
-        ,case when ny.forrige_behandlings_id is not null and ny_diagnose.kode is not null then 'J'
-              when ny.forrige_behandlings_id is null then 'J'
-              else 'N'
-         end siste_diagnose_flagg
+         , nvl(antall_behandlinger,0) antall_behandlinger
+         ,min_antall.min_antall_behandlinger
+         ,case when nvl(antall_behandlinger,0)<=min_antall_behandlinger then 'J' else 'N' end siste_diagnose_flagg
+        
   from pre_final2 ny
   left join ny_diagnose
-  on ny.fk_pp_fagsak = ny_diagnose.fk_pp_fagsak
+  on ny.saksnummer = ny_diagnose.saksnummer
   and ny.kode = ny_diagnose.kode
   and ny.type = ny_diagnose.type
+ 
+  left join min_antall on
+  1=1
+ 
 )
-
+ 
 select
-  dvh_fampp_kafka.hibernate_sequence.nextval as pk_pp_diagnose
- ,kode
- ,type
- ,fk_pp_fagsak
- ,localtimestamp as lastet_dato
- ,cast(null as varchar2(4)) as fk_dim_diagnose
- ,siste_diagnose_flagg
+dvh_fampp_kafka.hibernate_sequence.nextval as pk_pp_diagnose,
+kode,
+type
+,fk_pp_fagsak
+,localtimestamp as lastet_dato
+,cast(null as varchar2(4)) as fk_dim_diagnose
+--,antall_behandlinger
+--,min_antall_behandlinger
+,siste_diagnose_flagg
 from final
