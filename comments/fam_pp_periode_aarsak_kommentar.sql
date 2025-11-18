@@ -1,0 +1,4 @@
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_AARSAK.PK_PP_PERIODE_AARSAK IS '#NAVN PK_PP_PERIODE_AARSAK #INNHOLD Primærnøkkel er en unik ID for hver rad, autogenerert fra dvh_fampp_kafka.hibernate_sequence.nextval';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_AARSAK.FK_PP_PERIODER IS '#NAVN FK_PP_PERIODER #INNHOLD Fremmednøkkel til fam_bb_perioder tabellen ';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_AARSAK.LASTET_DATO IS '#NAVN LASTET_DATO #INNHOLD Tidsstempel som angir når en rad ble lagt til i tabellen';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_AARSAK.AARSAK IS '#NAVN AARSAK #INNHOLD Årsaken til at en bestemt periode blir oppfylt eller ikke oppfylt';

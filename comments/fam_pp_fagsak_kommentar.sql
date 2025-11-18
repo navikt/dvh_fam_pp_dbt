@@ -1,0 +1,14 @@
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.PK_PP_FAGSAK IS '#NAVN PK_PP_FAGSAK #INNHOLD Primærnøkkel er en unik ID for hver rad, autogenerert fra dvh_fampp_kafka.hibernate_sequence.nextval';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.FK_PERSON1_MOTTAKER IS '#NAVN FK_PERSON1_MOTTAKER #INNHOLD Fk_person1 til mottaker (mapping til mottaker fnr)';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.FK_PERSON1_PLEIETRENGENDE IS '#NAVN FK_PERSON1_PLEIETRENGENDE #INNHOLD Fk_person1 til pleietrengende (barn) (mapping til pleietrengende fnr)';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.LASTET_DATO IS '#NAVN LASTET_DATO #INNHOLD Tidsstempel som angir når en rad ble lagt til i tabellen fagsak';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.VEDTAKS_TIDSPUNKT IS '#NAVN VEDTAKS_TIDSPUNKT #INNHOLD Tidspunkt når vedtaket ble fattet';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.FK_PP_METADATA IS '#NAVN FK_PP_METADATA #INNHOLD Fremmednøkkel til metadata tabellen, det er 1 til 1 forhold';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.KUN_KRONISK_SYKT_BARN_OVER12 IS '#NAVN KUN_KRONISK_SYKT_BARN_OVER12 #INNHOLD Flagg (0/1) som angir om et barn er over 12 år og har kronisk sykdom; 1 = ja, 0 = nei';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.BEHANDLINGS_ID IS '#NAVN BEHANDLINGS_ID #INNHOLD Versjon av aktuelt saksnummer – unik identifikator for en sak i en gitt periode';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.FORRIGE_BEHANDLINGS_ID IS '#NAVN FORRIGE_BEHANDLINGS_ID #INNHOLD Referanse til forrige behandling i en og samme sakdersom en slik finnes. Brukes til å spore behandlingens historikk';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.PLEIETRENGENDE IS '#NAVN PLEIETRENGENDE #INNHOLD Fnr til pleietrengende (barn)';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.SAKSNUMMER IS '#NAVN SAKSNUMMER #INNHOLD Et tall som fungerer som referanse for en sak hos NAV og den hører til mottakeren';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.SOKER IS '#NAVN SOKER #INNHOLD Fnr til søkeren (mottakeren)';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.UTBETALINGSREFERANSE IS '#NAVN UTBETALINGSREFERANSE #INNHOLD ';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_FAGSAK.YTELSE_TYPE IS '#NAVN YTELSE_TYPE #INNHOLD Ytelse_type er en trebokstavskode som angir hvilken ytelse vedtaket tilhører. Foreløpig finnes kodene PSB, OMP og PPN';

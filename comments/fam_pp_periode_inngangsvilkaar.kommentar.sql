@@ -1,0 +1,8 @@
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.PK_PP_PERIODE_INNGANGSVILKAAR IS '#NAVN PK_PP_PERIODE_INNGANGSVILKAAR #INNHOLD Primærnøkkel er en unik ID for hver rad, autogenerert fra dvh_fampp_kafka.hibernate_sequence.nextval';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.FK_PP_PERIODER IS '#NAVN FK_PP_PERIODER #INNHOLD Fremmednøkkel til fam_bb_perioder tabellen';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.LASTET_DATO IS '#NAVN LASTET_DATO #INNHOLD Tidsstempel som angir når en rad ble lagt til i tabellen';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.DETALJERT_UTFALL IS '#NAVN DETALJERT_UTFALL #INNHOLD ';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.DATO_FOM IS '#NAVN DATO_FOM #INNHOLD Datoen som viser fra når vilkårene for rett til pleiepenger gjelder fra';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.DATO_TOM IS '#NAVN DATO_TOM #INNHOLD Datoen som viser til når vilkårene for rett til pleiepenger gjelder til.';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.UTFALL IS '#NAVN UTFALL #INNHOLD Oppfylt eller ikke oppfylt flagg som sier om en mottaker oppfyller vilkårene for å ha rett på pleiepenger';
+COMMENT ON COLUMN DVH_FAM_PP.FAM_PP_PERIODE_INNGANGSVILKAAR.VILKAAR IS '#NAVN VILKAAR #INNHOLD Vilkårene mottakeren må oppfylle for å ha rett på pleiepenger';
